@@ -1,3 +1,1 @@
-import "./batman.js";
-import "./superman.js";
-
+console.log("Hello world Mario");
