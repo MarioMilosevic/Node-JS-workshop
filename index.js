@@ -1,17 +1,10 @@
-import EventEmitter from "events";
+import { PizzaShop } from "./pizza-shop.js";
 
-const emitter = new EventEmitter();
+const pizzaShop = new PizzaShop();
 
-emitter.on("order-pizza", (size, topping) => {
-  console.log(`Order received! Baking a pizza a ${size} pizza with ${topping}`);
+pizzaShop.on("order", (size, topping) => {
+  console.log(`Order ${size}, ${topping}`);
 });
 
-emitter.on("order-pizza", (size) => {
-  if (size === "large") {
-    console.log("Serving complimentary drink");
-  }
-});
-
-console.log("Before emit");
-emitter.emit("order-pizza", "large", "mushrooms");
-console.log("After emit");
+pizzaShop.order("large", "ketchup");
+pizzaShop.displayOrderNumber();
