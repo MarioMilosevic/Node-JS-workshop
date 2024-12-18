@@ -1,9 +1,14 @@
 import { createServer } from "node:http";
 
 const server = createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Hello world!");
-  console.log(req)
+  const superHero = {
+    fistName: "Bruce",
+    lastName: "Wayne",
+  };
+
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(superHero));
+  console.log(req);
 });
 
 server.listen(3000, () => {
