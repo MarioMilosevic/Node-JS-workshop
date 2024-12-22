@@ -1,9 +1,14 @@
-const http = require("http");
+const { createReadStream } = require("fs");
 
-const server = http.createServer();
-
-server.on("request", (req, res) => {
-  res.end("Welcome");
+const stream = createReadStream("./content/big.txt", {
+  highWaterMark: 9000,
+  encoding: "utf-8",
 });
 
-server.listen(5000);
+stream.on("data", (result) => {
+  console.log(result);
+});
+
+stream.on('error',(err) => {
+  console.log(err)
+})
