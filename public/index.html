@@ -7,8 +7,10 @@
     <title>Document</title>
   </head>
   <body>
-    <ul class="list">
-      {{elements}}
-    </ul>
+    <form action="/messages" class="form" method="post">
+      <input type="email" placeholder="email" name="email" />
+      <textarea name="text" id="text"></textarea>
+      <button>Submit</button>
+    </form>
   </body>
 </html>

@@ -1,22 +1,25 @@
 const express = require("express");
-const user = require("./data.json");
+const fs = require("fs");
+const app = express();
 const port = 3000;
 
-const app = express();
+app.use(express.static(__dirname + "/public"));
+app.use(express.urlencoded());
 
-app.use(express.static(__dirname));
+app.post("/messages", (req, res) => {
+  fs.readFile("./messages.json", "utf-8", (err, content) => {
+    const arr = JSON.parse(content);
+    arr.push(req.body);
+    fs.writeFile("./messages.json", JSON.stringify(arr), (err) => {
+      if (err) res.send("Something failed");
+      else res.send("OK");
+    });
+  });
 
-function getData() {
-  const data = fetch("./data.json")
-    .then((res) => res.json())
-    .then((data) => data);
-  console.log("Ovo je data", data);
-}
-
-app.use("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  console.log(req.body);
+  res.send("Ok");
 });
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
