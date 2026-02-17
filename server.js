@@ -4,7 +4,8 @@ const app = express();
 const port = 3000;
 
 app.use(express.static(__dirname + "/public"));
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
+app.use(express.json());
 
 app.post("/messages", (req, res) => {
   fs.readFile("./messages.json", "utf-8", (err, content) => {
