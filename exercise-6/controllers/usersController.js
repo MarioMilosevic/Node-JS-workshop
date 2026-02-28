@@ -18,6 +18,9 @@ const validateUser = [
     .withMessage(`Last name ${alphaErr}`)
     .isLength({ min: 1, max: 10 })
     .withMessage(`Last name ${lengthErr}`),
+  body("email").trim().isEmail(),
+  body("age").optional(),
+  body("bio").optional().isLength(200),
 ];
 
 exports.usersCreatePost = [
@@ -30,8 +33,9 @@ exports.usersCreatePost = [
         errors: errors.array(),
       });
     }
-    const { firstName, lastName } = matchedData(req);
-    usersStorage.addUser({ firstName, lastName });
+    const { firstName, lastName, email, bio, age } = matchedData(req);
+    console.log(firstName, lastName, email, bio, age);
+    usersStorage.addUser({ firstName, lastName, email, bio, age });
     res.redirect("/");
   },
 ];
